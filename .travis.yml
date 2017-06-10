@@ -3,3 +3,5 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libcppunit-dev
 script: make test
+notifications:
+  email: false
