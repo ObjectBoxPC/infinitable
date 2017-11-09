@@ -16,6 +16,7 @@ class InfinitableTest : public CppUnit::TestFixture {
 		CPPUNIT_TEST(testInfinitiesEquality);
 		CPPUNIT_TEST(testInfinityGreaterThanAll);
 		CPPUNIT_TEST(testNegativeInfinityLessThanAll);
+		CPPUNIT_TEST(testCanNegate);
 	CPPUNIT_TEST_SUITE_END();
 public:
 	void setUp() {
@@ -89,6 +90,13 @@ public:
 		CPPUNIT_ASSERT(zero >= neginf);
 		CPPUNIT_ASSERT(inf > neginf);
 		CPPUNIT_ASSERT(inf >= neginf);
+	}
+
+	void testCanNegate() {
+		CPPUNIT_ASSERT(-zero == zero);
+		CPPUNIT_ASSERT(-one == infinitable<int>(-1));
+		CPPUNIT_ASSERT(-inf == neginf);
+		CPPUNIT_ASSERT(-neginf == inf);
 	}
 private:
 	infinitable<int> neginf, inf, zero, one;

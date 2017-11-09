@@ -118,4 +118,15 @@ template <class A, class B>
 bool operator >=(infinitable<A> a, infinitable<B> b) {
 	return !(a < b);
 }
+
+template <class T>
+infinitable<T> operator -(infinitable<T> i) {
+	if(i == infinitable<T>::inf()) {
+		return infinitable<T>::neginf();
+	} else if(i == infinitable<T>::neginf()) {
+		return infinitable<T>::inf();
+	} else {
+		return infinitable<T>(-i.value());
+	}
+}
 #endif
