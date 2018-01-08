@@ -2,21 +2,24 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -ansi -pedantic
 CXXLIBS = -lcppunit
 
-OBJS = InfinitableTest.o testmain.o
+TESTOBJS = InfinitableTest.o testmain.o
 
 all: test.bin
 
-test.bin: $(OBJS)
-	$(CXX) -o $@ $(OBJS) $(CXXLIBS)
+test.bin: $(TESTOBJS)
+	$(CXX) -o $@ $(TESTOBJS) $(CXXLIBS)
 
 InfinitableTest.o: InfinitableTest.cpp infinitable.h
 
-testmain.o: testmain.cpp
+.SUFFIXES: .cpp .o
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
 test: test.bin
 	./test.bin
 
 clean:
-	rm -f test.bin $(OBJS)
+	rm -f test.bin $(TESTOBJS)
 
-.PHONY: clean
+.PHONY: all test clean
