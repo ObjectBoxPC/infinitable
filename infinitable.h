@@ -51,28 +51,11 @@ private:
 
 template <class A, class B>
 bool operator ==(const infinitable<A>& a, const infinitable<B>& b) {
-	typedef infinitable<A> ia;
-	typedef infinitable<B> ib;
-
-	if(a.m_tag == ia::IT_INF && b.m_tag == ib::IT_INF) {
-		return true;
+	if(a.m_tag == b.m_tag && a.m_tag == infinitable<A>::IT_FINITE) {
+		return a.value() == b.value();
+	} else {
+		return a.m_tag == b.m_tag;
 	}
-	if(a.m_tag == ia::IT_NEGINF && b.m_tag == ib::IT_NEGINF) {
-		return true;
-	}
-	if(a.m_tag == ia::IT_FINITE && b.m_tag != ib::IT_FINITE) {
-		return false;
-	}
-	if(a.m_tag != ia::IT_FINITE && b.m_tag == ib::IT_FINITE) {
-		return false;
-	}
-	if(a.m_tag == ia::IT_INF && b.m_tag == ib::IT_NEGINF) {
-		return false;
-	}
-	if(a.m_tag == ia::IT_NEGINF && b.m_tag == ib::IT_INF) {
-		return false;
-	}
-	return a.value() == b.value();
 }
 
 template <class A, class B>
