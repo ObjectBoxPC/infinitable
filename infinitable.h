@@ -73,6 +73,18 @@ public:
 		return (comp == COMP_GREATER || comp == COMP_EQUAL)
 			|| (comp == COMP_FINITE && m_value >= other.m_value);
 	}
+
+	infinitable operator -() {
+		switch(m_tag) {
+		case IT_INF:
+			return infinitable(IT_NEGINF);
+		case IT_NEGINF:
+			return infinitable(IT_INF);
+		case IT_FINITE:
+		default: //Not needed, only here to silence compiler warnings
+			return infinitable(-m_value);
+		}
+	}
 private:
 	enum inf_tag { IT_FINITE, IT_INF, IT_NEGINF };
 
@@ -102,15 +114,4 @@ private:
 		}
 	}
 };
-
-template <class T>
-infinitable<T> operator -(infinitable<T> i) {
-	if(i == infinitable<T>::inf()) {
-		return infinitable<T>::neginf();
-	} else if(i == infinitable<T>::neginf()) {
-		return infinitable<T>::inf();
-	} else {
-		return infinitable<T>(-i.value());
-	}
-}
 #endif
