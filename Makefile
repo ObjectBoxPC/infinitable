@@ -1,4 +1,3 @@
-CXX = c++
 CXXFLAGS = -Wall -Wextra -ansi -pedantic
 CXXLIBS = -lcppunit
 
