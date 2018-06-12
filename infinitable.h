@@ -32,8 +32,47 @@ public:
 		return m_tag == IT_FINITE;
 	}
 
-	template <class FA, class FB>
-	friend bool operator ==(const infinitable<FA>& a, const infinitable<FB>& b);
+	template<class U>
+	bool operator ==(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return comp == COMP_EQUAL
+			|| (comp == COMP_FINITE && m_value == other.m_value);
+	}
+
+	template<class U>
+	bool operator !=(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return comp != COMP_EQUAL
+			|| (comp == COMP_FINITE && m_value != other.m_value);
+	}
+
+	template<class U>
+	bool operator <(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return comp == COMP_LESS
+			|| (comp == COMP_FINITE && m_value < other.m_value);
+	}
+
+	template<class U>
+	bool operator >(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return comp == COMP_GREATER
+			|| (comp == COMP_FINITE && m_value > other.m_value);
+	}
+
+	template<class U>
+	bool operator <=(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return (comp == COMP_LESS || comp == COMP_GREATER)
+			|| (comp == COMP_FINITE && m_value <= other.m_value);
+	}
+
+	template<class U>
+	bool operator >=(const infinitable<U>& other) const {
+		comparison comp = compare(other);
+		return (comp == COMP_GREATER || comp == COMP_EQUAL)
+			|| (comp == COMP_FINITE && m_value >= other.m_value);
+	}
 private:
 	enum inf_tag { IT_FINITE, IT_INF, IT_NEGINF };
 
@@ -41,60 +80,28 @@ private:
 	inf_tag m_tag;
 
 	infinitable(inf_tag tag) : m_value(T()), m_tag(tag) {}
+
+	enum comparison { COMP_LESS, COMP_EQUAL, COMP_GREATER, COMP_FINITE };
+
+	template<class U>
+	comparison compare(const infinitable<U>& other) const {
+		if(m_tag == IT_INF && other.m_tag == IT_INF) {
+			return COMP_EQUAL;
+		} else if(m_tag == IT_NEGINF && other.m_tag == IT_NEGINF) {
+			return COMP_EQUAL;
+		} else if(m_tag == IT_INF) {
+			return COMP_GREATER;
+		} else if(other.m_tag == IT_INF){
+			return COMP_LESS;
+		} else if(m_tag == IT_NEGINF) {
+			return COMP_LESS;
+		} else if(other.m_tag == IT_NEGINF) {
+			return COMP_GREATER;
+		} else {
+			return COMP_FINITE;
+		}
+	}
 };
-
-template <class A, class B>
-bool operator ==(const infinitable<A>& a, const infinitable<B>& b) {
-	if(a.m_tag == b.m_tag && a.m_tag == a.IT_FINITE) {
-		return a.m_value == b.m_value;
-	} else {
-		return a.m_tag == b.m_tag;
-	}
-}
-
-template <class A, class B>
-bool operator !=(const infinitable<A>& a, const infinitable<B>& b) {
-	return !(a == b);
-}
-
-template <class A, class B>
-bool operator <(infinitable<A> a, infinitable<B> b) {
-	infinitable<A> a_inf = infinitable<A>::inf();
-	infinitable<B> b_inf = infinitable<B>::inf();
-	infinitable<A> a_neginf = infinitable<A>::neginf();
-	infinitable<B> b_neginf = infinitable<B>::neginf();
-
-	if(a == a_inf && b == b_inf) {
-		return false;
-	} else if(a == a_neginf && b == b_neginf) {
-		return false;
-	} else if(a == a_inf) {
-		return false;
-	} else if(b == b_inf){
-		return true;
-	} else if(a == a_neginf) {
-		return true;
-	} else if(b == b_neginf) {
-		return false;
-	} else {
-		return a.value() < b.value();
-	}
-}
-
-template <class A, class B>
-bool operator >(infinitable<A> a, infinitable<B> b) {
-	return !((a < b) || (a == b));
-}
-
-template <class A, class B>
-bool operator <=(infinitable<A> a, infinitable<B> b) {
-	return (a < b) || (a == b);
-}
-
-template <class A, class B>
-bool operator >=(infinitable<A> a, infinitable<B> b) {
-	return !(a < b);
-}
 
 template <class T>
 infinitable<T> operator -(infinitable<T> i) {
