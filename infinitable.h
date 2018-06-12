@@ -45,8 +45,8 @@ private:
 
 template <class A, class B>
 bool operator ==(const infinitable<A>& a, const infinitable<B>& b) {
-	if(a.m_tag == b.m_tag && a.m_tag == infinitable<A>::IT_FINITE) {
-		return a.value() == b.value();
+	if(a.m_tag == b.m_tag && a.m_tag == a.IT_FINITE) {
+		return a.m_value == b.m_value;
 	} else {
 		return a.m_tag == b.m_tag;
 	}
