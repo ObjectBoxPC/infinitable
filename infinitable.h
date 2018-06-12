@@ -13,11 +13,11 @@ public:
 	infinitable(T value = T()) : m_value(value), m_tag(IT_FINITE) {}
 
 	static infinitable inf() {
-		return make_from_tag(IT_INF);
+		return infinitable(IT_INF);
 	}
 
 	static infinitable neginf() {
-		return make_from_tag(IT_NEGINF);
+		return infinitable(IT_NEGINF);
 	}
 
 	T& value() {
@@ -40,13 +40,7 @@ private:
 	T m_value;
 	inf_tag m_tag;
 
-	static infinitable make_from_tag(inf_tag tag) {
-		infinitable result;
-
-		result.m_value = T();
-		result.m_tag = tag;
-		return result;
-	}
+	infinitable(inf_tag tag) : m_value(T()), m_tag(tag) {}
 };
 
 template <class A, class B>
