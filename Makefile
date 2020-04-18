@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -Wextra -ansi -pedantic
+CXXFLAGS = -Wall -Wextra -std=c++11 -pedantic
 CXXLIBS = -lcppunit
 
 TESTTARGET = test/test.bin

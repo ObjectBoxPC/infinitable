@@ -7,6 +7,7 @@
 #include "../infinitable.h"
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <cmath>
 
 class InfinitableTest : public CppUnit::TestFixture {
 	CPPUNIT_TEST_SUITE(InfinitableTest);
@@ -16,6 +17,7 @@ class InfinitableTest : public CppUnit::TestFixture {
 		CPPUNIT_TEST(testInfinitiesEquality);
 		CPPUNIT_TEST(testInfinityGreaterThanAll);
 		CPPUNIT_TEST(testNegativeInfinityLessThanAll);
+		CPPUNIT_TEST(testNanIsIncomparable);
 		CPPUNIT_TEST(testCanNegate);
 	CPPUNIT_TEST_SUITE_END();
 public:
@@ -24,6 +26,7 @@ public:
 		inf = infinitable<int>::inf();
 		zero = 0;
 		one = 1;
+		nan = NAN;
 	}
 
 	void testCanExtractFiniteValue() {
@@ -92,6 +95,15 @@ public:
 		CPPUNIT_ASSERT(inf >= neginf);
 	}
 
+	void testNanIsIncomparable() {
+		CPPUNIT_ASSERT(!(nan == nan));
+		CPPUNIT_ASSERT(!(nan < nan));
+		CPPUNIT_ASSERT(!(nan <= nan));
+		CPPUNIT_ASSERT(!(nan > nan));
+		CPPUNIT_ASSERT(!(nan >= nan));
+		CPPUNIT_ASSERT(nan != nan);
+	}
+
 	void testCanNegate() {
 		CPPUNIT_ASSERT(-zero == zero);
 		CPPUNIT_ASSERT(-one == infinitable<int>(-1));
@@ -100,6 +112,7 @@ public:
 	}
 private:
 	infinitable<int> neginf, inf, zero, one;
+	infinitable<float> nan;
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(InfinitableTest);
