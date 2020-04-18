@@ -4,7 +4,7 @@
  * Available under the 2-clause BSD license (refer to `LICENSE.txt` for details)
  */
 
-#include "infinitable.h"
+#include "../infinitable.h"
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 

@@ -1,8 +1,8 @@
 CXXFLAGS = -Wall -Wextra -ansi -pedantic
 CXXLIBS = -lcppunit
 
-TESTTARGET = test.bin
-TESTOBJS = InfinitableTest.o testmain.o
+TESTTARGET = test/test.bin
+TESTOBJS = test/InfinitableTest.o test/main.o
 
 all: $(TESTTARGET)
 
