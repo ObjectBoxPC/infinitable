@@ -2,8 +2,8 @@
 #define INFINITABLE_H
 
 /*
- * This file is part of Infinitable <https://github.com/philipchungtech/infinitable>
- * Copyright (c) 2016-2017 Philip Chung. All rights reserved.
+ * This file is part of Infinitable <https://github.com/ObjectBoxPC/infinitable>
+ * Copyright (c) 2017-2020 Philip Chung. All rights reserved.
  * Available under the 2-clause BSD license (refer to `LICENSE.txt` for details)
  */
 
