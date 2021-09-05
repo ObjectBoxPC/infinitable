@@ -44,4 +44,4 @@ To illustrate, here are some values listed from least to greatest:
 
 ## License
 
-Infinitable is available under the 2-clause BSD license. Refer to `LICENSE.txt` for details.
+Infinitable is available under the 2-clause BSD license. The header file includes the license text so simply preserving the text there will suffice for source distributions. For binary (non-source) distributions, a separate license text is provided in `LICENSE.txt` for convenience (although either text may be used).
