@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+* A bug in the less-than-or-equal operator (`<=`) introduced in 2.0.0 is fixed.
+* Makefile is fixed so that tests are recompiled when the main header file is changed.
+* License text is added to the header file to facilitate compliance.
+
 ## 2.0.0
 
 Breaking changes:
