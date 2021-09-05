@@ -41,35 +41,6 @@ public:
 		CPPUNIT_ASSERT(!neginf.is_finite());
 	}
 
-	/*
-	void testCanCompareEqual() {
-		CPPUNIT_ASSERT(neginf == neginf);
-		CPPUNIT_ASSERT(inf == inf);
-		CPPUNIT_ASSERT(one == one);
-
-		CPPUNIT_ASSERT(!(zero == one));
-		CPPUNIT_ASSERT(!(neginf == zero));
-		CPPUNIT_ASSERT(!(inf == zero));
-		CPPUNIT_ASSERT(!(zero == neginf));
-		CPPUNIT_ASSERT(!(zero == inf));
-		CPPUNIT_ASSERT(!(neginf == inf));
-	}
-
-	void testCanCompareUnequal() {
-		CPPUNIT_ASSERT(!(zero == one));
-		CPPUNIT_ASSERT(!(neginf == zero));
-		CPPUNIT_ASSERT(!(inf == zero));
-		CPPUNIT_ASSERT(!(zero == neginf));
-		CPPUNIT_ASSERT(!(zero == inf));
-		CPPUNIT_ASSERT(!(neginf == inf));
-
-		CPPUNIT_ASSERT(!(neginf != neginf));
-		CPPUNIT_ASSERT(!(inf != inf));
-		CPPUNIT_ASSERT(!(one == one));
-
-	}
-	*/
-
 	void testFiniteValuesCompareNormally() {
 		CPPUNIT_ASSERT(zero < one);
 		CPPUNIT_ASSERT(zero <= one);
