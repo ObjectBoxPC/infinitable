@@ -85,7 +85,7 @@ public:
 	template<class U>
 	bool operator <=(const infinitable<U>& other) const {
 		comparison comp = compare(other);
-		return (comp == COMP_LESS || comp == COMP_GREATER)
+		return (comp == COMP_LESS || comp == COMP_EQUAL)
 			|| (comp == COMP_FINITE && m_value <= other.m_value);
 	}
 
