@@ -9,7 +9,7 @@ all: $(TESTTARGET)
 $(TESTTARGET): $(TESTOBJS)
 	$(CXX) -o $@ $(TESTOBJS) $(CXXLIBS)
 
-InfinitableTest.o: InfinitableTest.cpp infinitable.h
+test/InfinitableTest.o: test/InfinitableTest.cpp infinitable.h
 
 .SUFFIXES: .cpp .o
 
