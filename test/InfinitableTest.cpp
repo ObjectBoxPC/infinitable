@@ -59,6 +59,10 @@ public:
 	void testInfinitiesEquality() {
 		CPPUNIT_ASSERT(inf == inf);
 		CPPUNIT_ASSERT(neginf == neginf);
+		CPPUNIT_ASSERT(inf <= inf);
+		CPPUNIT_ASSERT(neginf <= neginf);
+		CPPUNIT_ASSERT(inf >= inf);
+		CPPUNIT_ASSERT(neginf >= neginf);
 		CPPUNIT_ASSERT(!(inf != inf));
 		CPPUNIT_ASSERT(!(neginf != neginf));
 
