@@ -96,7 +96,7 @@ public:
 			|| (comp == COMP_FINITE && m_value >= other.m_value);
 	}
 
-	infinitable operator -() {
+	infinitable operator -() const {
 		switch(m_tag) {
 		case IT_INF:
 			return infinitable(IT_NEGINF);
