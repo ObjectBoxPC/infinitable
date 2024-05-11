@@ -29,6 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdexcept>
+
 template <class T>
 class infinitable {
 public:
@@ -105,6 +107,118 @@ public:
 		case IT_FINITE:
 		default: //Not needed, only here to silence compiler warnings
 			return infinitable(-m_value);
+		}
+	}
+
+	infinitable operator +(const infinitable& other) const {
+		if((m_tag == IT_INF && other.m_tag == IT_NEGINF)
+			|| (m_tag == IT_NEGINF && other.m_tag == IT_INF)) {
+			throw std::domain_error(
+				"Cannot add infinity and negative infinity"
+			);
+		} else if(m_tag == IT_FINITE && other.m_tag == IT_FINITE) {
+			return infinitable(m_value + other.m_value);
+		} else if(m_tag == IT_INF || other.m_tag == IT_INF) {
+			return infinitable(IT_INF);
+		} else {
+			return infinitable(IT_NEGINF);
+		}
+	}
+
+	infinitable operator -(const infinitable& other) const {
+		if((m_tag == IT_INF && other.m_tag == IT_INF)
+			|| (m_tag == IT_NEGINF && other.m_tag == IT_NEGINF)) {
+			throw std::domain_error(
+				"Cannot subtract infinite value from itself"
+			);
+		} else if(m_tag == IT_FINITE && other.m_tag == IT_FINITE) {
+			return infinitable(m_value - other.m_value);
+		} else if(m_tag == IT_INF || other.m_tag == IT_NEGINF) {
+			return infinitable(IT_INF);
+		} else {
+			return infinitable(IT_NEGINF);
+		}
+	}
+
+	infinitable operator *(const infinitable& other) const {
+		if((m_tag == IT_INF && other.m_tag == IT_INF)
+			|| (m_tag == IT_NEGINF && other.m_tag == IT_NEGINF)) {
+			return infinitable(IT_INF);
+		} else if((m_tag == IT_INF && other.m_tag == IT_NEGINF)
+			|| (m_tag == IT_NEGINF && other.m_tag == IT_INF)) {
+			return infinitable(IT_NEGINF);
+		} else if(m_tag == IT_INF) {
+			if(other.m_value > T()) {
+				return infinitable(IT_INF);
+			} else if(other.m_value < T()) {
+				return infinitable(IT_NEGINF);
+			} else {
+				throw std::domain_error(
+					"Cannot multiply infinite value and zero or unordered value"
+				);
+			}
+		} else if(other.m_tag == IT_INF) {
+			if(m_value > T()) {
+				return infinitable(IT_INF);
+			} else if(m_value < T()) {
+				return infinitable(IT_NEGINF);
+			} else {
+				throw std::domain_error(
+					"Cannot multiply infinite value and zero or unordered value"
+				);
+			}
+		} else if(m_tag == IT_NEGINF) {
+			if(other.m_value > T()) {
+				return infinitable(IT_NEGINF);
+			} else if(other.m_value < T()) {
+				return infinitable(IT_INF);
+			} else {
+				throw std::domain_error(
+					"Cannot multiply infinite value and zero or unordered value"
+				);
+			}
+		} else if(other.m_tag == IT_NEGINF) {
+			if(m_value > T()) {
+				return infinitable(IT_NEGINF);
+			} else if(m_value < T()) {
+				return infinitable(IT_INF);
+			} else {
+				throw std::domain_error(
+					"Cannot multiply infinite value and zero or unordered value"
+				);
+			}
+		} else {
+			return infinitable(m_value * other.m_value);
+		}
+	}
+
+	infinitable operator /(const infinitable& other) const {
+		if(m_tag != IT_FINITE && other.m_tag != IT_FINITE) {
+			throw std::domain_error("Cannot divide two infinite values");
+		} else if(m_tag == IT_INF) {
+			return other.m_value < T()
+				? infinitable(IT_NEGINF)
+				: infinitable(IT_INF);
+		} else if(m_tag == IT_NEGINF) {
+			return other.m_value < T()
+				? infinitable(IT_INF)
+				: infinitable(IT_NEGINF);
+		} else if(m_tag == IT_FINITE && other.m_tag != IT_FINITE) {
+			return infinitable(T());
+		} else {
+			if(other.m_value < T() || other.m_value > T()) {
+				return infinitable(m_value / other.m_value);
+			} else {
+				if(m_value > T()) {
+					return infinitable(IT_INF);
+				} else if(m_value < T()) {
+					return infinitable(IT_NEGINF);
+				} else {
+					throw std::domain_error(
+						"Cannot divide two zeros or unordered values"
+					);
+				}
+			}
 		}
 	}
 private:
