@@ -10,15 +10,16 @@ Simply copy `infinitable.h` and include it in your program:
 
 ```c++
 #include <iostream>
+#include <cassert>
 #include "infinitable.h"
 
 int main() {
 	infinitable<int> finite = infinitable<int>(5);
 	infinitable<int> infinity = infinitable<int>::inf();
 	infinitable<int> negative_infinity = infinitable<int>::neginf();
-	if(finite < infinity && finite > negative_infinity) {
-		std::cout << "It works!" << std::endl;
-	}
+
+	assert(finite < infinity);
+	assert(finite > negative_infinity);
 
 	return 0;
 }
