@@ -119,18 +119,13 @@ private:
 
 	template<class U>
 	comparison compare(const infinitable<U>& other) const {
-		if(m_tag == IT_INF && other.m_tag == IT_INF) {
+		if((m_tag == IT_INF && other.m_tag == IT_INF)
+			|| (m_tag == IT_NEGINF && other.m_tag == IT_NEGINF)) {
 			return COMP_EQUAL;
-		} else if(m_tag == IT_NEGINF && other.m_tag == IT_NEGINF) {
-			return COMP_EQUAL;
-		} else if(m_tag == IT_INF) {
+		} else if(m_tag == IT_INF || other.m_tag == IT_NEGINF) {
 			return COMP_GREATER;
-		} else if(other.m_tag == IT_INF){
+		} else if(m_tag == IT_NEGINF || other.m_tag == IT_INF){
 			return COMP_LESS;
-		} else if(m_tag == IT_NEGINF) {
-			return COMP_LESS;
-		} else if(other.m_tag == IT_NEGINF) {
-			return COMP_GREATER;
 		} else {
 			return COMP_FINITE;
 		}
