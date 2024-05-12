@@ -4,7 +4,7 @@
 /*
  * This file is part of Infinitable <https://github.com/ObjectBoxPC/infinitable>
  *
- * Copyright (c) 2017-2020 Philip Chung. All rights reserved.
+ * Copyright (c) 2017-2024 Philip Chung. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
