@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.0.0
+
+Breaking changes:
+
+* The negation operator is now `const`. This should only make a difference if the underlying "finite" type has const and non-const negation operators that behave differently:
+	```
+	class weird_negation {
+	public:
+		// ...
+		weird_negation operator -() { /* ...non-const overload... */ }
+		weird_negation operator -() const { /* ...const overload... */ }
+	};
+
+	// ...
+
+	infinitable<weird_negation> x = /* ...finite value... */;
+
+	// Calls non-const overload before 3.x, calls const overload in 3.x
+	infinitable<weird_negation> neg_x = -x;
+	```
+
+Other changes:
+
+* Arithmetic operators are now supported. (Refer to the README for how infinite values are handled.)
+
 ## 2.0.1
 
 * A bug in the less-than-or-equal operator (`<=`) introduced in 2.0.0 is fixed.
