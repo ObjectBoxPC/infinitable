@@ -31,6 +31,93 @@ Tests are in `InfinitableTest.cpp` and use CppUnit. In addition, the usage examp
 
 On a Unix-like system with the CppUnit library installed, simply run `make test` to run the tests.
 
+## Arithmetic Operations
+
+Arithmetic operations behave as described in the following tables.
+
+### Addition
+
+| LHS      | RHS      | Result                          |
+|----------|----------|---------------------------------|
+| Finite   | Finite   | Finite (subtract values)        |
+| Finite   | `inf`    | `inf`                           |
+| Finite   | `neginf` | `neginf`                        |
+| `inf`    | Finite   | `inf`                           |
+| `inf`    | `inf`    | `inf`                           |
+| `inf`    | `neginf` | Undefined (`std::domain_error`) |
+| `neginf` | Finite   | `neginf`                        |
+| `neginf` | `inf`    | Undefined (`std::domain_error`) |
+| `neginf` | `neginf` | `neginf`                        |
+
+### Subtraction
+
+| LHS      | RHS      | Result                          |
+|----------|----------|---------------------------------|
+| Finite   | Finite   | Finite (add values)             |
+| Finite   | `inf`    | `neginf`                        |
+| Finite   | `neginf` | `inf`                           |
+| `inf`    | Finite   | `inf`                           |
+| `inf`    | `inf`    | Undefined (`std::domain_error`) |
+| `inf`    | `neginf` | `inf`                           |
+| `neginf` | Finite   | `neginf`                        |
+| `neginf` | `inf`    | `neginf`                        |
+| `neginf` | `neginf` | Undefined (`std::domain_error`) |
+
+### Multiplication
+
+In the following table, "0" is the result of value-initializing the underlying type (`T()`), which generally represents zero for numeric types. The notation "~ 0" refers to a value that is neither less than nor greater than that value.
+
+| LHS          | RHS          | Result                          |
+|--------------|--------------|---------------------------------|
+| Finite       | Finite       | Finite (multiply values)        |
+| Finite (> 0) | `inf`        | `inf`                           |
+| Finite (~ 0) | `inf`        | Undefined (`std::domain_error`) |
+| Finite (< 0) | `inf`        | `neginf`                        |
+| Finite (> 0) | `neginf`     | `neginf`                        |
+| Finite (~ 0) | `neginf`     | Undefined (`std::domain_error`) |
+| Finite (< 0) | `neginf`     | `inf`                           |
+| `inf`        | Finite (> 0) | `inf`                           |
+| `inf`        | Finite (~ 0) | Undefined (`std::domain_error`) |
+| `inf`        | Finite (< 0) | `neginf`                        |
+| `inf`        | `inf`        | `inf`                           |
+| `inf`        | `neginf`     | `neginf`                        |
+| `neginf`     | Finite (> 0) | `neginf`                        |
+| `neginf`     | Finite (~ 0) | Undefined (`std::domain_error`) |
+| `neginf`     | Finite (< 0) | `inf`                           |
+| `neginf`     | `inf`        | `neginf`                        |
+| `neginf`     | `neginf`     | `inf`                           |
+
+### Division
+
+In the following table, "0" is the result of value-initializing the underlying type (`T()`), which generally represents zero for numeric types. The notation "<> 0" refers to a value that is either less than or greater than that value, "~ 0" refers to a value that is neither.
+
+| LHS          | RHS           | Result                          |
+|--------------|---------------|---------------------------------|
+| Finite (> 0) | Finite (~ 0)  | `inf`                           |
+| Finite (~ 0) | Finite (~ 0)  | Undefined (`std::domain_error`) |
+| Finite (< 0) | Finite (~ 0)  | `neginf`                        |
+| Finite       | Finite (<> 0) | Finite (divide values)          |
+| Finite       | `inf`         | 0                               |
+| Finite       | `neginf`      | 0                               |
+| `inf`        | Finite (> 0)  | `inf`                           |
+| `inf`        | Finite (~ 0)  | `inf`                           |
+| `inf`        | Finite (< 0)  | `neginf`                        |
+| `inf`        | `inf`         | Undefined (`std::domain_error`) |
+| `inf`        | `neginf`      | Undefined (`std::domain_error`) |
+| `neginf`     | Finite (> 0)  | `neginf`                        |
+| `neginf`     | Finite (~ 0)  | `neginf`                        |
+| `neginf`     | Finite (< 0)  | `inf`                           |
+| `neginf`     | `inf`         | Undefined (`std::domain_error`) |
+| `neginf`     | `neginf`      | Undefined (`std::domain_error`) |
+
+### Negation
+
+| Operand  | Result                |
+|----------|-----------------------|
+| Finite   | Finite (negate value) |
+| `inf`    | `neginf`              |
+| `neginf` | `inf`                 |
+
 ## Note About Floating-Point Numbers
 
 Infinitable does not account for existing infinite values in floating-point numeric types. The infinity provided by Infinitable compares greater than *all* existing values, and the negative infinity provided by Infinitable compares less than *all* existing values.
@@ -42,6 +129,8 @@ To illustrate, here are some values listed from least to greatest:
 * Floating-point zero
 * Floating-point infinity
 * Infinitable `inf()`
+
+Similarly, any existing infinite values are treated as "finite" values for the purposes of arithmetic operations.
 
 ## License
 
