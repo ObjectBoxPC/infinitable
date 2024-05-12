@@ -27,7 +27,7 @@ int main() {
 
 ## Tests
 
-Tests are in `InfinitableTest.cpp` and use CppUnit.
+Tests are in `InfinitableTest.cpp` and use CppUnit. In addition, the usage example in this README also serves as a fully executable test.
 
 On a Unix-like system with the CppUnit library installed, simply run `make test` to run the tests.
 
