@@ -20,6 +20,8 @@ int main() {
 
 	assert(finite < infinity);
 	assert(finite > negative_infinity);
+	assert(infinity == infinity - finite);
+	assert(infinity == finite * infinity);
 
 	return 0;
 }
