@@ -17,7 +17,7 @@ test/InfinitableTest.o: test/InfinitableTest.cpp infinitable.h
 $(READMETESTTARGET): $(READMETESTOBJS)
 	$(CXX) -o $@ $(READMETESTOBJS)
 
-test/readme-test.o: $(READMETESTSRC) infinitable.h
+test/readme-test.gen.o: $(READMETESTSRC) infinitable.h
 
 $(READMETESTSRC): README.md
 	awk '/^```/ { testsrc = !testsrc }; !/^```/ { if (testsrc) { print; } }' < README.md > $(READMETESTSRC)
