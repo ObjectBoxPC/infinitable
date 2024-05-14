@@ -41,7 +41,7 @@ Arithmetic operations behave as described in the following tables.
 
 | LHS      | RHS      | Result                          |
 |----------|----------|---------------------------------|
-| Finite   | Finite   | Finite (subtract values)        |
+| Finite   | Finite   | Finite (add values)             |
 | Finite   | `inf`    | `inf`                           |
 | Finite   | `neginf` | `neginf`                        |
 | `inf`    | Finite   | `inf`                           |
@@ -55,7 +55,7 @@ Arithmetic operations behave as described in the following tables.
 
 | LHS      | RHS      | Result                          |
 |----------|----------|---------------------------------|
-| Finite   | Finite   | Finite (add values)             |
+| Finite   | Finite   | Finite (subtract values)        |
 | Finite   | `inf`    | `neginf`                        |
 | Finite   | `neginf` | `inf`                           |
 | `inf`    | Finite   | `inf`                           |
