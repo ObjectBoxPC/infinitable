@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+* Incorrect wording about arithmetic operations in README is corrected.
+* Makefile is fixed so that the README usage example is recompiled when the main header file is changed.
+* (No library code is changed.)
+
 ## 3.0.0
 
 Breaking changes:
