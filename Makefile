@@ -20,7 +20,7 @@ $(READMETESTTARGET): $(READMETESTOBJS)
 test/readme-test.gen.o: $(READMETESTSRC) infinitable.h
 
 $(READMETESTSRC): README.md
-	awk '/^```/ { testsrc = !testsrc }; !/^```/ { if (testsrc) { print; } }' < README.md > $(READMETESTSRC)
+	awk '/^```/ { testsrc = !testsrc }; !/^```/ { if (testsrc) { print; } }' < $< > $@
 
 .SUFFIXES: .cpp .o
 
